@@ -18,14 +18,12 @@ public class MenuScreen : MonoBehaviour {
 
 	// Use this for initialization
 	public void StartMenu(HighScore[] Highscore) {
+		//gets the componets it need
 		Menu = GetComponent<RectTransform>();
 		anim = GetComponent<Animation>();
 		animtor = GetComponent<Animator>();
 
-		//Scoretxt.text = "Your Score is: " + GM.getScore.ToString("F2");;
-		//HighScoretxt.text = "Highscore is: " + GM.getHighScore.ToString("F2");
-		//Debug.Log(GM.getHighScore);
-
+		// puts the score in to the higscore
 		for (int i = 0; i < Highscore.Length; i++)
 		{
 			//Debug.Log(Highscore[i].name);
@@ -37,7 +35,7 @@ public class MenuScreen : MonoBehaviour {
 
 	}
 	
-	// Update is called once per frame
+	// hidde the menu and play the animation
 	public void hide () {
 		Menu.localPosition = new Vector3(0, Screen.height * 5, 0);
 		DisableWhenNotRunning.SetActive(true);
@@ -48,8 +46,8 @@ public class MenuScreen : MonoBehaviour {
 		animtor.SetBool("ifHiding", true);
 	}
 
+	//shows the menu and play the animation
 	public void show() {
-		//Menu.localPosition = new Vector3(0 , 0 , 0);
 		DisableWhenNotRunning.SetActive(false);
 		foreach (GameObject dis in DisableWhenRunning)
 		{
@@ -57,12 +55,12 @@ public class MenuScreen : MonoBehaviour {
 		}
 		Scoretxt.text = "Your Score is: " + GM.getScore.ToString("F2");
 		animtor.SetBool("ifHiding", false);
-		//HighScoretxt.text = "Highscore is: " + GM.getHighScore.ToString("F2");
 	}
 
-	public HighScore[] CheckAndUpdateHighScore(float score, HighScore[] CurrentHighScore) {		
+	//check where the score is					//TODO: remove the parmenter CurrentHighScore 
+	public HighScore[] CheckAndUpdateHighScore(float score) {	
+		//create a array and initializing it.
 		HighScore[] h = new HighScore[4];
-
 		for (int i = 0; i < h.Length; i++)
 		{
 			h[i] = new HighScore("name", 0);
@@ -72,12 +70,19 @@ public class MenuScreen : MonoBehaviour {
 		string[] CurName = new string[4];
 		string[] CurScore = new string[4];
 
+		//test where the score can be place 
 		for(int i = 0; i < 4; i++) {
 			float v;
+			//gets the time of the currenthighscore
 			string ph = hs[i].transform.GetChild(2).GetComponent<Text>().text.Replace(" sec", "").ToString();
+
+			//Converte it to a float
 			if(float.TryParse(ph, out v)) {
-				if(score > v) {				
+				//test if the score is lager then last score
+				if(score > v) {
+					//test if player has type in a name				
 					if(nameinput.text != "") {
+							//if it have not found a position already
 							if(!hasFound) {
 								
 								Debug.Log("Found");
@@ -93,13 +98,15 @@ public class MenuScreen : MonoBehaviour {
 
 								hasFound = true;
 
+								//saves the last score
 					 			h[i].score = score;
 					 			h[i].name = nameinput.text;
 
 							} 
+							//replace it with the top one
 							else 
 							{
-
+								
 								CurName[i] = hs[i].transform.GetChild(1).GetComponent<Text>().text;
 								CurScore[i] = hs[i].transform.GetChild(2).GetComponent<Text>().text;
 
@@ -131,6 +138,7 @@ public class MenuScreen : MonoBehaviour {
 		return h;
 	}
 
+	//resets the text in the highscore
 	public void ResethighScore(string name, string score) {
 		for (int i = 0; i < hs.Length; i++)
 		{
@@ -139,6 +147,7 @@ public class MenuScreen : MonoBehaviour {
 		}
 	}
 
+	//tests if the player has type in a name
 	public void PlayGame() {
 		if(nameinput.text != "") {
 			GM.restart();

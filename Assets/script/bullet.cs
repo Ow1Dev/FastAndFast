@@ -8,6 +8,7 @@ public class bullet : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		//finds the Game Manager
 		GM = GameObject.FindGameObjectWithTag("GameController").GetComponent<Game>();
 	}
 	

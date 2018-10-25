@@ -8,6 +8,8 @@ public class SaveAndLoad : MonoBehaviour{
 
 
 	public static void Save(HighScore[] High) {
+		//take the highscore and saves it in the application
+
 		for (int i = 0; i < numberofscore; i++)
 		{
 			PlayerPrefs.SetString("name" + i , High[i].name);
@@ -16,6 +18,7 @@ public class SaveAndLoad : MonoBehaviour{
 	}
 
 	public static void reset() {
+		//reset all the highscore
 		for (int i = 0; i < numberofscore; i++)
 		{
 			PlayerPrefs.SetString("name" + i , "name");
@@ -23,22 +26,25 @@ public class SaveAndLoad : MonoBehaviour{
 		}
 	}
 
+	//return all the highscore store in the application
 	public static HighScore[] Load() {
+
+		//creating a list for at have a dynamic score
 		List<HighScore> h = new List<HighScore>();
 
 
+		//runs four times
 		for (int i = 0; i < numberofscore; i++)
 		{
-			// if(PlayerPrefs.HasKey("name" + i)) {
 				try
 				{
+					//get the higscore and name.
 					string name = PlayerPrefs.GetString("name" + i);
 					float score = PlayerPrefs.GetFloat("score" + i);
-
+					//create a new object and puts name and score in
 					HighScore hi = new HighScore(name, score);
 
-					//Debug.Log("name: " + name + " score: " + score);
-
+					//add it to the list
 					h.Add(hi);	
 					
 				}
@@ -49,6 +55,7 @@ public class SaveAndLoad : MonoBehaviour{
 			// }
 		}
 		
+		//returns the list as a array
 		return h.ToArray();
 	}
 }

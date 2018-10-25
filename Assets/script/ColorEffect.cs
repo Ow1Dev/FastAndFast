@@ -8,6 +8,7 @@ public class ColorEffect : MonoBehaviour {
 	private bool reverse = false;
 	private float c = 0.1f;
 
+	//make a SPECTRUM CYCLING effect in the sky.
 	void Update () {
 		if(reverse) {
 				c -= .01f * Time.deltaTime;

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerProgress{
-
+//stores the highscore
+/* public class PlayerProgress{
+	
 	public float HighScore = 0;	
 
-}
+}*/

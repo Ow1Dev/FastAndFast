@@ -13,9 +13,11 @@ public class Emitter : MonoBehaviour {
 	
 
 	public void SpawnObject() {
+		//Spawn a object between max and min value
 		Instantiate(prefab, new Vector3(Random.Range(min, max), transform.position.y, transform.position.z), Quaternion.identity, myParent.transform );
 	}
 
+	//go to every object and destroys it
 	public void DestoyAllBullet() {
 		for (int ChildenIndex = 0; ChildenIndex < myParent.transform.childCount; ChildenIndex++)
 		{
